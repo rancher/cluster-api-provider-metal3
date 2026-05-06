@@ -79,7 +79,7 @@ get_go_version = $(shell $(GO) list -m $1 | awk '{print $$2}')
 ifneq ($(GO),)
 	GINKGO_VER := $(call get_go_version,github.com/onsi/ginkgo/v2)
 endif
-ENVTEST_K8S_VERSION := 1.35.x
+ENVTEST_K8S_VERSION := 1.36.x
 
 # Define Docker related variables. Releases should modify and double check these vars.
 # REGISTRY ?= gcr.io/$(shell gcloud config get-value project)
@@ -122,7 +122,7 @@ help:  # Display this help
 ## --------------------------------------
 ##@ tests:
 
-export KUBEBUILDER_ENVTEST_KUBERNETES_VERSION ?= 1.35.0
+export KUBEBUILDER_ENVTEST_KUBERNETES_VERSION ?= 1.36.0
 KUBEBUILDER_ASSETS ?= $(shell $(SETUP_ENVTEST) use --use-env -p path $(KUBEBUILDER_ENVTEST_KUBERNETES_VERSION))
 
 .PHONY: setup-envtest
