@@ -3,3 +3,7 @@ kind: Kustomization
 
 resources:
 - https://github.com/metal3-io/cluster-api-provider-metal3/config/default?ref=release-1.12
+
+images:
+- name: quay.io/metal3-io/cluster-api-provider-metal3
+  newTag: release-1.12
