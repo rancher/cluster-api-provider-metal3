@@ -672,21 +672,6 @@ func (m *MachineManager) Delete(ctx context.Context) error {
 
 		host.Spec.ConsumerRef = nil
 
-		// Delete created secret, if data was set without DataSecretName
-		if m.Machine.Spec.Bootstrap.DataSecretName == nil {
-			m.Log.Info("Deleting User data secret for machine")
-			if m.Metal3Machine.Status.UserData != nil {
-				err = deleteSecret(ctx, m.client, m.Metal3Machine.Status.UserData.Name,
-					m.Metal3Machine.Namespace,
-				)
-				if err != nil {
-					return err
-				}
-			}
-		}
-
-		host.Spec.ConsumerRef = nil
-
 		// Remove the ownerreference to this machine.
 		host.OwnerReferences, err = m.DeleteOwnerRef(host.OwnerReferences)
 		if err != nil {
