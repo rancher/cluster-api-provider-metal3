@@ -3,3 +3,7 @@ kind: Kustomization
 
 resources:
 - https://github.com/metal3-io/ip-address-manager/config/default?ref=release-1.11
+
+images:
+- name: quay.io/metal3-io/ip-address-manager
+  newTag: release-1.11
