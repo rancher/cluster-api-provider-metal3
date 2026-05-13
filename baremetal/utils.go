@@ -252,29 +252,6 @@ func checkSecretExists(ctx context.Context, cl client.Client, name string,
 	return tmpBootstrapSecret, err
 }
 
-func deleteSecret(ctx context.Context, cl client.Client, name string,
-	namespace string,
-) error {
-	tmpBootstrapSecret, err := checkSecretExists(ctx, cl, name, namespace)
-	if err != nil && !apierrors.IsNotFound(err) {
-		return err
-	} else if err == nil {
-		// unset the finalizers (remove all since we do not expect anything else
-		// to control that object).
-		tmpBootstrapSecret.Finalizers = []string{}
-		err = updateObject(ctx, cl, &tmpBootstrapSecret)
-		if err != nil {
-			return err
-		}
-		// Delete the secret with metadata.
-		err = cl.Delete(ctx, &tmpBootstrapSecret)
-		if err != nil && !apierrors.IsNotFound(err) {
-			return err
-		}
-	}
-	return nil
-}
-
 // fetchM3DataTemplate returns the Metal3DataTemplate object.
 func fetchM3DataTemplate(ctx context.Context,
 	templateRef *infrav1.Metal3ObjectRef, cl client.Client, mLog logr.Logger,

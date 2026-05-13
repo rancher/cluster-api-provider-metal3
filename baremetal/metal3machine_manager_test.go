@@ -1924,7 +1924,7 @@ var _ = Describe("Metal3Machine manager", func() {
 				m3mObjectMetaWithValidAnnotations(),
 			),
 			Secret:              newSecret(),
-			ExpectSecretDeleted: true,
+			ExpectSecretDeleted: false,
 		}),
 		Entry("Deprovisioning in progress", testCaseDelete{
 			Host: newBareMetalHost(baremetalhostName, bmhSpecNoImg(),
@@ -1960,7 +1960,7 @@ var _ = Describe("Metal3Machine manager", func() {
 					m3mObjectMetaWithValidAnnotations(),
 				),
 				Secret:              newSecret(),
-				ExpectSecretDeleted: true,
+				ExpectSecretDeleted: false,
 			},
 		),
 		Entry("Consumer ref should be removed from unmanaged host",
@@ -1973,7 +1973,7 @@ var _ = Describe("Metal3Machine manager", func() {
 					m3mObjectMetaWithValidAnnotations(),
 				),
 				Secret:              newSecret(),
-				ExpectSecretDeleted: true,
+				ExpectSecretDeleted: false,
 			},
 		),
 		Entry("Consumer ref should be removed, BMH state is available", testCaseDelete{
@@ -1985,7 +1985,7 @@ var _ = Describe("Metal3Machine manager", func() {
 				m3mObjectMetaWithValidAnnotations(),
 			),
 			Secret:              newSecret(),
-			ExpectSecretDeleted: true,
+			ExpectSecretDeleted: false,
 		}),
 		Entry("Consumer ref should be removed", testCaseDelete{
 			Host: newBareMetalHost(baremetalhostName, bmhSpecNoImg(), bmov1alpha1.StateReady,
@@ -1996,7 +1996,7 @@ var _ = Describe("Metal3Machine manager", func() {
 				m3mObjectMetaWithValidAnnotations(),
 			),
 			Secret:              newSecret(),
-			ExpectSecretDeleted: true,
+			ExpectSecretDeleted: false,
 		}),
 		Entry("Consumer ref should be removed, secret not deleted", testCaseDelete{
 			Host: newBareMetalHost(baremetalhostName, bmhSpecNoImg(), bmov1alpha1.StateReady,

@@ -403,36 +403,6 @@ var _ = Describe("Metal3 manager utils", func() {
 		Entry("Object exists", true),
 	)
 
-	DescribeTable("Test deleteSecret",
-		func(secretExists bool) {
-			if secretExists {
-				err := k8sClient.Create(context.TODO(), &corev1.Secret{
-					ObjectMeta: metav1.ObjectMeta{
-						Name:       "abc",
-						Namespace:  namespaceName,
-						Finalizers: []string{"foo.bar/foo"},
-					},
-				})
-				Expect(err).NotTo(HaveOccurred())
-			}
-
-			err := deleteSecret(context.TODO(), k8sClient, "abc", namespaceName)
-			Expect(err).NotTo(HaveOccurred())
-			savedSecret := corev1.Secret{}
-			err = k8sClient.Get(context.TODO(),
-				client.ObjectKey{
-					Name:      "abc",
-					Namespace: namespaceName,
-				},
-				&savedSecret,
-			)
-			Expect(err).To(HaveOccurred())
-			Expect(apierrors.IsNotFound(err)).To(BeTrue())
-		},
-		Entry("Object does not exist", false),
-		Entry("Object exists", true),
-	)
-
 	type testCaseFetchM3DataTemplate struct {
 		DataTemplate  *infrav1.Metal3DataTemplate
 		ClusterName   string
